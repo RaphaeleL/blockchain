@@ -18,7 +18,7 @@ class Blockchain:
                 "amount": amount,
             }
         )
-        return self.last_block["index"] + 1
+        return self.last_block["index"] 
 
     def new_block(self, proof: int, previous_hash: str = None) -> dict:
         """Creates a new Block and adds it to the chain"""

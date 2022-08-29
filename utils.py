@@ -29,7 +29,7 @@ def mine(
     previous_hash = blockchain.hash(last_block)
     block = blockchain.new_block(proof, previous_hash)
     print(
-        bcolors.WARNING + f"New Block mined at index: {block['index']+1}" + bcolors.ENDC
+        bcolors.WARNING + f"New Block mined at index: {block['index']}" + bcolors.ENDC
     )
     if debug:
         print(f"> Transactions: {block['transactions']}")
