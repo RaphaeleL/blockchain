@@ -14,20 +14,20 @@ def showcase_transactions():
     sender_node_identifier = create_id()
     receipient_node_identifier = create_id()
     _ = new_transaction(
-        blockchain, sender_node_identifier, receipient_node_identifier, 1, True
+        blockchain, sender_node_identifier, receipient_node_identifier, 1
     )
     _ = mine(blockchain, receipient_node_identifier, True)
     _ = new_transaction(
-        blockchain, sender_node_identifier, receipient_node_identifier, 1, True
+        blockchain, sender_node_identifier, receipient_node_identifier, 1
     )
     _ = new_transaction(
-        blockchain, sender_node_identifier, receipient_node_identifier, 1, True
+        blockchain, sender_node_identifier, receipient_node_identifier, 1
     )
     _ = mine(blockchain, receipient_node_identifier, True)
     _ = new_transaction(
-        blockchain, sender_node_identifier, receipient_node_identifier, 1, True
+        blockchain, sender_node_identifier, receipient_node_identifier, 1
     )
-    _ = chain(blockchain, True)
+    _ = chain(blockchain)
 
 
 if __name__ == "__main__":
