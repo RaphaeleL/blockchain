@@ -1,3 +1,5 @@
+from __future__ import print_function
+import builtins as __builtin__
 from blockchain import Blockchain
 from colors import Colors
 from uuid import uuid4
@@ -19,7 +21,10 @@ def mine(
     block = blockchain.new_block(proof, previous_hash)
     print(Colors.WARNING + f"New Block mined at index: {block['index']}" + Colors.ENDC)
     if debug:
-        print(f"> Transactions: {block['transactions']}")
+        # print(f"> Transactions: {block['transactions']}")
+        print(f"> Transactions:")
+        for transaction in block["transactions"]:
+            print(f"  > {transaction}")
         print(f"> Proof: {block['proof']}")
         print(f"> Previous Hash: {block['previous_hash']}")
     _ = chain(blockchain)
@@ -52,3 +57,9 @@ def chain(blockchain: Blockchain, debug: bool = False) -> dict:
 
 def create_id() -> str:
     return uuid4().hex
+
+
+# def print(*args, **kwargs):
+# """My custom print() function."""
+# __builtin__.print("My overridden print() function!")
+# return __builtin__.print(*args, **kwargs)

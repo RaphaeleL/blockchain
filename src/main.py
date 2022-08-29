@@ -19,14 +19,14 @@ def showcase_transactions():
     )
     _ = mine(blockchain, receipient_node_identifier, True)
     _ = new_transaction(
-        blockchain, sender_node_identifier, receipient_node_identifier, 1
+        blockchain, sender_node_identifier, receipient_node_identifier, 2
     )
     _ = new_transaction(
-        blockchain, sender_node_identifier, receipient_node_identifier, 1
+        blockchain, sender_node_identifier, receipient_node_identifier, 3
     )
     _ = mine(blockchain, receipient_node_identifier, True)
     _ = new_transaction(
-        blockchain, sender_node_identifier, receipient_node_identifier, 1
+        blockchain, sender_node_identifier, receipient_node_identifier, 4
     )
 
 
