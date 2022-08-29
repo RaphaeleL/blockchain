@@ -1,17 +1,6 @@
 from blockchain import Blockchain
+from colors import Colors
 from uuid import uuid4
-
-
-class bcolors:
-    HEADER = "\033[95m"
-    OKBLUE = "\033[94m"
-    OKCYAN = "\033[96m"
-    OKGREEN = "\033[92m"
-    WARNING = "\033[93m"
-    FAIL = "\033[91m"
-    ENDC = "\033[0m"
-    BOLD = "\033[1m"
-    UNDERLINE = "\033[4m"
 
 
 def mine(
@@ -28,9 +17,7 @@ def mine(
     )
     previous_hash = blockchain.hash(last_block)
     block = blockchain.new_block(proof, previous_hash)
-    print(
-        bcolors.WARNING + f"New Block mined at index: {block['index']}" + bcolors.ENDC
-    )
+    print(Colors.WARNING + f"New Block mined at index: {block['index']}" + Colors.ENDC)
     if debug:
         print(f"> Transactions: {block['transactions']}")
         print(f"> Proof: {block['proof']}")
@@ -47,15 +34,13 @@ def new_transaction(
 ) -> dict:
     """Add a new Transaction"""
     index = blockchain.new_transaction(sender, recipient, amount)
-    print(
-        bcolors.OKGREEN + f"Transaction will be added to Block {index}" + bcolors.ENDC
-    )
+    print(Colors.OKGREEN + f"Transaction will be added to Block {index}" + Colors.ENDC)
     return index
 
 
-def chain(blockchain: Blockchain, debug: bool = False):
+def chain(blockchain: Blockchain, debug: bool = False) -> dict:
     """Get the Chain"""
-    print(bcolors.OKCYAN + f"Chain with length {len(blockchain.chain)}" + bcolors.ENDC)
+    print(Colors.OKCYAN + f"Chain with length {len(blockchain.chain)}" + Colors.ENDC)
     if debug:
         for item in blockchain.chain:
             print(f"> {item}")
