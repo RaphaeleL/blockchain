@@ -1,9 +1,10 @@
 import hashlib
 from time import time
 from uuid import uuid4
+import json
 
 
-class blockchain:
+class Blockchain:
     def __init__(self):
         self.chain = []
         self.current_transactions = []
@@ -34,9 +35,12 @@ class blockchain:
         return block
 
     @staticmethod
-    def hash(block):
+    def hash(block: dict) -> str:
         """Hashes a Block"""
-        pass
+        # We must make sure that the Dictionary is Ordered,
+        # or we'll have inconsistent hashes
+        block_string = json.dumps(block, sort_keys=True).encode()
+        return hashlib.sha256(block_string).hexdigest()
 
     @property
     def last_block(self):
@@ -66,10 +70,12 @@ class blockchain:
         return guess_hash[:4] == "0000"
 
 
-def mine(blockchain, receipient_node_identifier: str, debug: bool = False) -> dict:
+def mine(
+    blockchain: Blockchain, receipient_node_identifier: str, debug: bool = False
+) -> dict:
     """Mine a new Block"""
     last_block = blockchain.last_block
-    last_proof = last_block["proof"]
+    # last_proof = last_block["proof"]
     proof = blockchain.proof_of_work(last_block)
     blockchain.new_transaction(
         sender="0",
@@ -88,7 +94,11 @@ def mine(blockchain, receipient_node_identifier: str, debug: bool = False) -> di
 
 
 def new_transaction(
-    blockchain, sender: str, recipient: str, amount: int, debug: bool = False
+    blockchain: Blockchain,
+    sender: str,
+    recipient: str,
+    amount: int,
+    debug: bool = False,
 ) -> dict:
     """Add a new Transaction"""
     index = blockchain.new_transaction(sender, recipient, amount)
@@ -97,7 +107,7 @@ def new_transaction(
     return index
 
 
-def chain(blockchain, debug: bool = False):
+def chain(blockchain: Blockchain, debug: bool = False):
     """Get the Chain"""
     if debug:
         print(f"Chain with length ({len(blockchain.chain)})")
@@ -110,7 +120,7 @@ def chain(blockchain, debug: bool = False):
 
 
 def showcase():
-    blockchain = blockchain()
+    blockchain = Blockchain()
     sender_node_identifier = str(uuid4()).replace("-", "")
     receipient_node_identifier = str(uuid4()).replace("-", "")
     _ = mine(blockchain, receipient_node_identifier, True)
