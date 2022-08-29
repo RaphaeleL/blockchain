@@ -1,35 +1,20 @@
 from blockchain import Blockchain
-from utils import mine, new_transaction, chain, create_id
+from utils import create_block, new_transaction, create_dummy_address
+from colors import END, CYAN
 
 
-def showcase_mining():
+def showcase():
     blockchain = Blockchain()
-    receipient_node_identifier = create_id()
-    while True:
-        _ = mine(blockchain, receipient_node_identifier, True)
-
-
-def showcase_transactions():
-    blockchain = Blockchain()
-    _ = chain(blockchain)
-    sender_node_identifier = create_id()
-    receipient_node_identifier = create_id()
-    _ = new_transaction(
-        blockchain, sender_node_identifier, receipient_node_identifier, 1
-    )
-    _ = mine(blockchain, receipient_node_identifier, True)
-    _ = new_transaction(
-        blockchain, sender_node_identifier, receipient_node_identifier, 2
-    )
-    _ = new_transaction(
-        blockchain, sender_node_identifier, receipient_node_identifier, 3
-    )
-    _ = mine(blockchain, receipient_node_identifier, True)
-    _ = new_transaction(
-        blockchain, sender_node_identifier, receipient_node_identifier, 4
-    )
+    print(CYAN + f"Chain with length {len(blockchain.chain)}" + END)
+    sender = create_dummy_address()
+    receiver = create_dummy_address()
+    new_transaction(blockchain, sender, receiver, 1)
+    create_block(blockchain, receiver, True)
+    new_transaction(blockchain, sender, receiver, 2)
+    new_transaction(blockchain, sender, receiver, 3)
+    create_block(blockchain, receiver, True)
+    new_transaction(blockchain, sender, receiver, 4)
 
 
 if __name__ == "__main__":
-    showcase_transactions()
-    # showcase_mining()
+    showcase()

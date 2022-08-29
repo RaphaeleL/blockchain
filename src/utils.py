@@ -1,33 +1,27 @@
-from __future__ import print_function
-import builtins as __builtin__
 from blockchain import Blockchain
-from colors import Colors
+from colors import YELLOW, END, GREEN, CYAN
 from uuid import uuid4
 
 
-def mine(
-    blockchain: Blockchain, receipient_node_identifier: str, debug: bool = False
-) -> dict:
-    """Mine a new Block"""
+def create_block(blockchain: Blockchain, receiver: str, debug: bool = False) -> dict:
+    """Mine / Create a new Block"""
     last_block = blockchain.last_block
-    # last_proof = last_block["proof"]
     proof = blockchain.proof_of_work(last_block)
     blockchain.new_transaction(
-        sender="0",
-        receiver=receipient_node_identifier,
+        sender="genesis",
+        receiver=receiver,
         amount=1,
     )
     previous_hash = blockchain.hash(last_block)
     block = blockchain.new_block(proof, previous_hash)
-    print(Colors.WARNING + f"New Block mined at index: {block['index']}" + Colors.ENDC)
+    print(YELLOW + f"New Block mined with index: {block['index']}" + END)
     if debug:
-        # print(f"> Transactions: {block['transactions']}")
-        print(f"> Transactions:")
+        print("> Transactions:")
         for transaction in block["transactions"]:
             print(f"  > {transaction}")
         print(f"> Proof: {block['proof']}")
         print(f"> Previous Hash: {block['previous_hash']}")
-    _ = chain(blockchain)
+        print(CYAN + f"Chain with length {len(blockchain.chain)}" + END)
     return block
 
 
@@ -39,27 +33,14 @@ def new_transaction(
 ) -> dict:
     """Add a new Transaction"""
     index = blockchain.new_transaction(sender, receiver, amount)
-    print(Colors.OKGREEN + f"Transaction will be added to Block {index}" + Colors.ENDC)
+    print(GREEN + f"Transaction will be added to Block {index}" + END)
     return index
 
 
-def chain(blockchain: Blockchain, debug: bool = False) -> dict:
+def print_chain_length(blockchain: Blockchain):
     """Get the Chain"""
-    print(Colors.OKCYAN + f"Chain with length {len(blockchain.chain)}" + Colors.ENDC)
-    if debug:
-        for item in blockchain.chain:
-            print(f"> {item}")
-    return {
-        "chain": blockchain.chain,
-        "length": len(blockchain.chain),
-    }
+    print(CYAN + f"Chain with length {len(blockchain.chain)}" + END)
 
 
-def create_id() -> str:
+def create_dummy_address() -> str:
     return uuid4().hex
-
-
-# def print(*args, **kwargs):
-# """My custom print() function."""
-# __builtin__.print("My overridden print() function!")
-# return __builtin__.print(*args, **kwargs)
