@@ -11,6 +11,7 @@ def showcase_mining():
 
 def showcase_transactions():
     blockchain = Blockchain()
+    _ = chain(blockchain)
     sender_node_identifier = create_id()
     receipient_node_identifier = create_id()
     _ = new_transaction(
@@ -27,7 +28,6 @@ def showcase_transactions():
     _ = new_transaction(
         blockchain, sender_node_identifier, receipient_node_identifier, 1
     )
-    _ = chain(blockchain)
 
 
 if __name__ == "__main__":

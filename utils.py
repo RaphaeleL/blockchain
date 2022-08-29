@@ -35,7 +35,7 @@ def mine(
         print(f"> Transactions: {block['transactions']}")
         print(f"> Proof: {block['proof']}")
         print(f"> Previous Hash: {block['previous_hash']}")
-
+    _ = chain(blockchain)
     return block
 
 
@@ -55,9 +55,7 @@ def new_transaction(
 
 def chain(blockchain: Blockchain, debug: bool = False):
     """Get the Chain"""
-    print(
-        bcolors.OKCYAN + f"Chain with length ({len(blockchain.chain)})" + bcolors.ENDC
-    )
+    print(bcolors.OKCYAN + f"Chain with length {len(blockchain.chain)}" + bcolors.ENDC)
     if debug:
         for item in blockchain.chain:
             print(f"> {item}")
