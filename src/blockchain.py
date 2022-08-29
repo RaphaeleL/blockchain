@@ -9,12 +9,12 @@ class Blockchain:
         self.current_transactions = []
         self.new_block(previous_hash=1, proof=100)
 
-    def new_transaction(self, sender: str, recipient: str, amount: int) -> dict:
+    def new_transaction(self, sender: str, receiver: str, amount: int) -> dict:
         """Creates a new Block and adds it to the chain"""
         self.current_transactions.append(
             {
                 "sender": sender,
-                "recipient": recipient,
+                "receiver": receiver,
                 "amount": amount,
             }
         )

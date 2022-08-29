@@ -12,7 +12,7 @@ def mine(
     proof = blockchain.proof_of_work(last_block)
     blockchain.new_transaction(
         sender="0",
-        recipient=receipient_node_identifier,
+        receiver=receipient_node_identifier,
         amount=1,
     )
     previous_hash = blockchain.hash(last_block)
@@ -29,11 +29,11 @@ def mine(
 def new_transaction(
     blockchain: Blockchain,
     sender: str,
-    recipient: str,
+    receiver: str,
     amount: int,
 ) -> dict:
     """Add a new Transaction"""
-    index = blockchain.new_transaction(sender, recipient, amount)
+    index = blockchain.new_transaction(sender, receiver, amount)
     print(Colors.OKGREEN + f"Transaction will be added to Block {index}" + Colors.ENDC)
     return index
 
